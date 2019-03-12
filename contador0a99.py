@@ -75,7 +75,7 @@ def incremento():
     return False
 
 def secuencia(cuenta):
-    if(cuenta < 10):
+    if(cuenta < 9):
         cuenta = cuenta + 1
         print('Contando ... ',cuenta,' , ')
     else:
@@ -99,6 +99,7 @@ def decisor2(cuenta,display1,display2,numero,retraso,comun):
         cargaNumero(display1,numero,cuenta//10,retraso,comun)
         cargaNumero(display2,numero,cuenta%10,retraso,comun)
         secuencia2(cuenta)
+    return cuenta
 
 def contador0a9(cuenta,display2,numero,retraso,veces):
     if(veces > 0):
@@ -108,6 +109,14 @@ def contador0a9(cuenta,display2,numero,retraso,veces):
         veces = veces - 1
         print('Quedan ',veces,' veces.')
     return("Conteo finalizado!")
+
+def contador0a99(cuenta,,display1,display2,numero,retraso,veces):
+    if (veces > 0):
+        while(cuenta < 100):
+            cuenta = decisor2(cuenta,display1,display2,numero,retraso,comun)
+        veces = veces - 1
+        print('Quedan ',veces,' veces.')
+    return ('Conteo finalizado')
 
 def contadorPulsado(cuenta,display2,numero):
     while(cuenta < 9):
