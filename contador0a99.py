@@ -63,13 +63,15 @@ def cargaNumero(display,n,retraso):
     time.sleep(retraso*20)
     print('Número ',n,' cargado correctamente.')
 
-def cargaNumero2(display,numero,n,retraso,comun):
+def cargaNumero2(display,numero,valor,retraso,comun):
+    prese = numero[valor]
     GPIO.output(comun,False)
     for i in range(len(display)):
-        GPIO.output(display[i],numero[n-1,i])
+        GPIO.output(display[i],prese[i])
     time.sleep(retraso)
     GPIO.output(comun,True)
-    print('Número ',n,' cargado correctamente.')
+    #print('Número ',valor,' cargado correctamente.')
+    return 'Cargado'
     
 def incremento():
     return False
@@ -91,26 +93,28 @@ def secuencia2(cuenta):
         print('Reiniciando cuenta...')
         cuenta = 0
         print('Cuenta reiniciada!')
+    return cuenta
 
 def decisor2(cuenta,display1,display2,numero,retraso,comun):
     if(cuenta < 10):
-        cargaNumero(display2,numero,cuenta,retraso,comun)
+        cargaNumero2(display2,numero,cuenta,retraso,comun)
     else:
-        cargaNumero(display1,numero,cuenta//10,retraso,comun)
-        cargaNumero(display2,numero,cuenta%10,retraso,comun)
-        secuencia2(cuenta)
+        cargaNumero2(display1,numero,cuenta//10,retraso,comun)
+        cargaNumero2(display2,numero,cuenta%10,retraso,comun)
+    cuenta = secuencia2(cuenta)
+    print('Numero: ',cuenta)
     return cuenta
 
 def contador0a9(cuenta,display2,numero,retraso,veces):
     if(veces > 0):
-        while(cuenta < 10):
+        while(cuenta < 9):
             cargaNumero(display2,numero[cuenta],retraso)
             cuenta = secuencia(cuenta)
         veces = veces - 1
         print('Quedan ',veces,' veces.')
     return("Conteo finalizado!")
 
-def contador0a99(cuenta,,display1,display2,numero,retraso,veces):
+def contador0a99(cuenta,display1,display2,numero,retraso,veces):
     if (veces > 0):
         while(cuenta < 100):
             cuenta = decisor2(cuenta,display1,display2,numero,retraso,comun)
@@ -132,6 +136,7 @@ print('Iniciando la ejecución de sentencias..')
 print('Inicializando configuración de pines...')
 configurarDisplay(display1,display2)
 print('Incializando conteo de 0 a 9...')
-contador0a9(cuenta,display1,numero,retraso,veces)
+#contador0a9(cuenta,display1,numero,retraso,veces)
+contador0a99(cuenta,display1,display2,numero,retraso,veces)
 momento = time.strftime("%c")
 print('Finalizado en el siguiente momento: ',momento)
