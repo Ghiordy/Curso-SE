@@ -5,6 +5,10 @@ Created on Tue Mar  11:28:24 2019
 @author: Ghiordy F. Contreras
 """
 
+#pip install webio
+
+#realizar un contador de 0 a 99
+
 
 import RPi.GPIO as GPIO
 import time 
