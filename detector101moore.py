@@ -8,7 +8,12 @@ import RPi.GPIO as GPIO
 import time
 import numpy as np
 
-#rebote = 0.3
+# Parametros de trabajo
+# pulsador0 = 2
+# pulsador1 = 3
+# rebote = 1
+# pare = 14
+# estados
 
 def configurar(pulsador0,pulsador1,pare,salida):
     GPIO.setmode(GPIO.BCM)
@@ -78,11 +83,7 @@ def main(pulsador0,pulsador1,salida,rebote,pare,estados):
     return aciertos
 
 main(2,3,4,1,14,[0,1,2,3])
-# pulsador0 = 2
-# pulsador1 = 3
-# rebote = 1
-# pare = 14
-# estados
+
 
 
     
