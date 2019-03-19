@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Mar  21:40:24 2019
+Created on Mon Mar  23:17:24 2019
 @author: Ghiordy F. Contreras
 """
 
@@ -17,23 +17,25 @@ def configurar(entrada,salida,pare,habilita):
     GPIO.setup(habilita,GPIO.IN)
     GPIO.setup(pare,GPIO.IN)
     GPIO.setup(salida,GPIO.OUT)
-    #estados = [0,1,2,3]
+    #estados = [0,1,2]
     estado = 0
     return estado
 
 def leer(pin):
     return GPIO.input(pin)
 
-def decoSalida(estado,salida):
+def decoSalida(estado,salida,entrada):
+    i = leer(entrada)
+    #time.sleep(rebote)
     if estado == 0:
         GPIO.output(salida,0)
     if estado == 1:
         GPIO.output(salida,0)
-    if estado == 2:
+    if estado == 2 and i:
+        GPIO.output(salida,1)
+    elif estado == 2 and not(i):
         GPIO.output(salida,0)
-    if estado == 3:
-        GPIO.outpu(salida,1)
-    return estado == 3
+    return estado == 2 and i
 
 def decoEstado(habilita,entrada,estado,rebote):
     s = leer(habilita)
@@ -49,13 +51,9 @@ def decoEstado(habilita,entrada,estado,rebote):
         elif estado == 1 and i:
             estado = 1
         if estado == 2 and i:
-            estado = 3
+            estado = 1
         elif estado == 2 and not(i):
-            estado = 1
-        if estado == 3 and not(i):
-            estado = 2
-        elif estado == 3 and i:
-            estado = 1
+            estado = 0
     return estado
 
 def main(entrada,habilita,salida,rebote,pare):
@@ -64,7 +62,7 @@ def main(entrada,habilita,salida,rebote,pare):
     aciertos = 0
     while(leer(pare) != 1):
         print('ESTADO: S',estado)
-        so = decoSalida(estado,salida)
+        so = decoSalida(estado,salida,entrada)
         if so:
             print('Secuencia detectada')
             aciertos =+1
@@ -75,5 +73,5 @@ def main(entrada,habilita,salida,rebote,pare):
     print('Se han logrado ',aciertos,' detecciones')
     return aciertos
 
-main(2,3,4,1,14)
+main(2,3,4,0.3,14)
     
