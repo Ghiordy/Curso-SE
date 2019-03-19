@@ -38,7 +38,7 @@ def decoEstado(entrada,estado,rebote):
             estado = 1
         else:
             estado = 0
-    if estado == 1:
+    elif estado == 1:
         if i:
             estado = 0
         else:
