@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar  09:01:24 2019
+Created on Mon Mar  23:17:24 2019
 @author: Ghiordy F. Contreras
 """
 
@@ -9,22 +9,29 @@ import time
 import numpy as np
 
 # Parametros de trabajo
-# pulsador0 = 2
-# pulsador1 = 3
+# entradaA = 2
+# entradaB = 3
 # rebote = 1
 # pare = 14
-# estados = [0,1,2]
-# salida = 4
+# estados = [0,1,2,3,4,5,6,7]
 
-def configurar(pulsador0,pulsador1,pare,salida):
+# palancas.................
+# [x1,x2,x3] = [17,27,22]
+# salidas
+# [C,D]= [23,24]
+
+def configurar(entradaA,entradaB,x1,x2,x3,C,D,pare):
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     GPIO.setup(pulsador0,GPIO.IN)
     GPIO.setup(pulsador1,GPIO.IN)
     GPIO.setup(pare,GPIO.IN)
-    GPIO.setup(salida,GPIO.OUT)
-    #estados = [0,1,2]
-    estado = 0
+    GPIO.setup(x1,GPIO.OUT)
+    GPIO.setup(x2,GPIO.OUT)
+    GPIO.setup(x3,GPIO.OUT)
+    GPIO.setup(C,GPIO.OUT)
+    GPIO.setup(D,GPIO.OUT)
+    estado = estados[0]
     return estado
 
 def leer(pin):
@@ -65,9 +72,9 @@ def decoEstado(pulsador0,pulsador1,estado,rebote,estados):
             estado = estados[1]
     return [estado,p1]
 
-def main(pulsador0,pulsador1,salida,rebote,pare,estados):
+def main([entradaA,entradaB],[x1,x2,x3],rebote,pare,estados,[C,D]):
     print('Instante: ',time.strftime("%c"))
-    estado = configurar(pulsador0,pulsador1,pare,salida)
+    estado = configurar(entradaA,entradaB,x1,x2,x3,pare)
     aciertos = 0
     p1 = 0
     while(leer(pare) != 0):
@@ -82,5 +89,5 @@ def main(pulsador0,pulsador1,salida,rebote,pare,estados):
     print('Se han logrado ',aciertos,' detecciones')
     return aciertos
 
-main(2,3,4,1,14,[0,1,2])
+main([2,3],[17,27,22],1,14,[0,1,2,3,4,5,6,7],[23,24])
     
