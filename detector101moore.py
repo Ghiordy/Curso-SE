@@ -13,7 +13,8 @@ import numpy as np
 # pulsador1 = 3
 # rebote = 1
 # pare = 14
-# estados
+# estados = [0,1,2,3]
+# salida = 4
 
 def configurar(pulsador0,pulsador1,pare,salida):
     GPIO.setmode(GPIO.BCM)

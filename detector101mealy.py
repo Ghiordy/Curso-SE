@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Mar  23:17:24 2019
+Created on Wed Mar  09:01:24 2019
 @author: Ghiordy F. Contreras
 """
 
@@ -13,7 +13,8 @@ import numpy as np
 # pulsador1 = 3
 # rebote = 1
 # pare = 14
-# estados [0,1,2]
+# estados = [0,1,2]
+# salida = 4
 
 def configurar(pulsador0,pulsador1,pare,salida):
     GPIO.setmode(GPIO.BCM)
