@@ -35,8 +35,7 @@ In code, you must be find at bottom the next instruction
 # funcion     -entradas-palancas-       -estados--------salidas-
 canicasFSMmealy([2,3],[17,27,22],1,14,[0,1,2,3,4,5,6,7],[23,24])
 ```
-This define pins GPIO using **BCM**  setup mode and should be changed in order to adapt to your purpose.
-
+This was defined for GPIO using **BCM** setup mode and should be changed in order to adapt to your purpose. The value 1 to avoid rebound in push button, as well as is used as clock and value 14 is reset pin, this must be always in HIGH other way stop executing of code.
 
 ## Theory
 
