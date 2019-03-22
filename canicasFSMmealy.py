@@ -20,74 +20,135 @@ import numpy as np
 # salidas
 # [C,D]= [23,24]
 
-def configurar(entradaA,entradaB,x1,x2,x3,C,D,pare):
+def configurar(entradaA,entradaB,x,C,D,pare,estados):
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
-    GPIO.setup(pulsador0,GPIO.IN)
-    GPIO.setup(pulsador1,GPIO.IN)
+    GPIO.setup(entradaA,GPIO.IN)
+    GPIO.setup(entradaB,GPIO.IN)
     GPIO.setup(pare,GPIO.IN)
-    GPIO.setup(x1,GPIO.OUT)
-    GPIO.setup(x2,GPIO.OUT)
-    GPIO.setup(x3,GPIO.OUT)
+    GPIO.setup(x[0],GPIO.OUT)
+    GPIO.setup(x[1],GPIO.OUT)
+    GPIO.setup(x[2],GPIO.OUT)
     GPIO.setup(C,GPIO.OUT)
     GPIO.setup(D,GPIO.OUT)
     estado = estados[0]
     return estado
 
-def leer(pin):
-    return GPIO.input(pin)
+def decoSalida(estado,estados,C,D,a,b):
+    if estado == estados[0]:
+        if a:
+            GPIO.output(C,1)
+            GPIO.output(D,0)
+        elif b:
+            GPIO.output(C,1)
+            GPIO.output(D,0)
+    elif estado == estados[1]:
+        if a:
+            GPIO.output(C,1)
+            GPIO.output(D,0)
+        elif b:
+            GPIO.output(C,1)
+            GPIO.output(D,0)
+    elif estado == estados[2]:
+        if a:
+            GPIO.output(C,1)
+            GPIO.output(D,0)
+        elif b:
+            GPIO.output(C,0)
+            GPIO.output(D,1)
+    elif estado == estados[3]:
+        if a:
+            GPIO.output(C,1)
+            GPIO.output(D,0)
+        elif b:
+            GPIO.output(C,0)
+            GPIO.output(D,1)
+    elif estado == estados[4]:
+        if a:
+            GPIO.output(C,0)
+            GPIO.output(D,1)
+        elif b:
+            GPIO.output(C,0)
+            GPIO.output(D,1)
+    elif estado == estados[5]:
+        if a:
+            GPIO.output(C,0)
+            GPIO.output(D,1)
+        elif b:
+            GPIO.output(C,0)
+            GPIO.output(D,1)
+    elif estado == estados[6]:
+        if a:
+            GPIO.output(C,1)
+            GPIO.output(D,0)
+        elif b:
+            GPIO.output(C,0)
+            GPIO.output(D,1)
+    elif estado == estados[7]:
+        if a:
+            GPIO.output(C,1)
+            GPIO.output(D,0)
+        elif b:
+            GPIO.output(C,1)
+            GPIO.output(D,0)
+    return 'Reiniciando...'
 
-def decoSalida(estado,salida,p1):
-    deteccion = False
-    if estado == 0:
-        GPIO.output(salida,0)
-    if estado == 1:
-        GPIO.output(salida,0)
-    if estado == 2 :
-        if p1 == 1:
-            GPIO.output(salida,1)
-            deteccion = True
-        elif p1 == 0:
-            GPIO.output(salida,0)
-    return deteccion
-
-def decoEstado(pulsador0,pulsador1,estado,rebote,estados):
-    p0 = leer(pulsador0)
-    p1 = leer(pulsador1)
+def decoEstado(entradaA,entradaB,estado,rebote,estados):
+    a = GPIO.input(entradaA)
+    b = GPIO.input(entradaB)
     time.sleep(rebote)
     if estado == estados[0]:
-        if p0 == 1:
-            estado = estados[0]
-        elif p1 == 1:
-            estado = estados[1]
-    elif estado == estados[1]:
-        if p0 == 1:
+        if a:
+            estado = estados[7]
+        elif b:
             estado = estados[2]
-        elif p1 == 0:
-            estado = estados[1]
+    elif estado == estados[1]:
+        if a:
+            estado = estados[6]
+        elif b:
+            estado = estados[3]
     elif estado == estados[2]:
-        if p0 == 1:
-            estado = estados[0]
-        elif p1 == 1:
+        if a:
+            estado = estados[5]
+        elif b:
+            estado = estados[3]
+    elif estado == estados[3]:
+        if a:
+            estado = estados[4]
+        elif b:
             estado = estados[1]
-    return [estado,p1]
+    elif estado == estados[4]:
+        if a:
+            estado = estados[0]
+        elif b:
+            estado = estados[6]
+    elif estado == estados[5]:
+        if a:
+            estado = estados[1]
+        elif b:
+            estado = estados[4]
+    elif estado == estados[6]:
+        if a:
+            estado = estados[2]
+        elif b:
+            estado = estados[7]
+    elif estado == estados[7]:
+        if a:
+            estado = estados[3]
+        elif b:
+            estado = estados[5]
+    return [estado,a,b]
 
-def main([entradaA,entradaB],[x1,x2,x3],rebote,pare,estados,[C,D]):
+def canicasFSMmealy(entrada,x,rebote,pare,estados,salida):
     print('Instante: ',time.strftime("%c"))
-    estado = configurar(entradaA,entradaB,x1,x2,x3,pare)
-    aciertos = 0
-    p1 = 0
-    while(leer(pare) != 0):
+    estado = configurar(entrada[0],entrada[1],x,salida[0],salida[1],pare,estados)
+    [aciertos,a,b] = [0,0,0]
+    while(GPIO.input(pare) != 0):
         print('ESTADO: S',estado)
-        so = decoSalida(estado,salida,p1)
-        if so:
-            print('Secuencia detectada')
-            aciertos =+1
-        else:
-            print('Por favor ingrese 101')
-        [estado,p1] = decoEstado(pulsador0,pulsador1,estado,rebote,estados)
+        so = decoSalida(estado,estados,salida[0],salida[1],a,b)
+        [estado,a,b] = decoEstado(entrada[0],entrada[1],estado,rebote,estados)
     print('Se han logrado ',aciertos,' detecciones')
     return aciertos
 
-main([2,3],[17,27,22],1,14,[0,1,2,3,4,5,6,7],[23,24])
-    
+# funcion     -entradas-palancas-       -estados--------salidas-
+canicasFSMmealy([2,3],[17,27,22],1,14,[0,1,2,3,4,5,6,7],[23,24])
