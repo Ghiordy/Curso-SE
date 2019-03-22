@@ -39,6 +39,6 @@ This was defined for GPIO using **BCM** setup mode and should be changed in orde
 
 ## Theory
 
-### Finite Machine States
+### Finite States Machines
 
 ![image](https://drive.google.com/uc?export=view&id=1p4bQQLuW036G44Ue-blih0MEKAimV49w)
