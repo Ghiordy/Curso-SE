@@ -47,8 +47,22 @@ Use two pulsers, when every pulser have its unique input, in this case only are:
 
 For this exercise exists moore and mealy architectures, where mealy has one state minus in comparison with moore.
 
+### contador0a99
+
+Using two seven segments displays may you count sequentially since 0 to 99, this code do just with you enter contador0a99() function defined previously in the same code. As well as there are functions for counter 0 to 9 using one seven segments display (contador0a9() function).
+
+### holamundo
+
+Print a "hello world" message and blink a Led 10 times.
+
+### instrucciones_carga_git
+
+Presents instructions to check status, commit code, pull from web, push on web, and cloning repository through terminal with Git bash previously installed.
+
+
 ## Theory
 
 ### Finite States Machines
 
 ![image](https://drive.google.com/uc?export=view&id=1p4bQQLuW036G44Ue-blih0MEKAimV49w)
+
