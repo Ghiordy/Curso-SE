@@ -42,7 +42,7 @@ def decoSalida(estado,estados,C,D,a,b):
         elif b:
             GPIO.output(C,1)
             GPIO.output(D,0)
-	    print('Ficha sale por D')
+	    print('Ficha sale por C')
     elif estado == estados[1]:
         if a:
             GPIO.output(C,1)
