@@ -157,13 +157,14 @@ def decoEstado(entradaA,entradaB,estado,rebote,estados):
 def canicasFSMmealy(entrada,x,rebote,pare,estados,salida):
     print('Instante: ',time.strftime("%c"))
     estado = configurar(entrada[0],entrada[1],x,salida[0],salida[1],pare,estados)
-    [aciertos,a,b] = [0,0,0]
+    [estadoSig,a,b] = [0,0,0]
     while(GPIO.input(pare) != 0):
+	estado = estadoSig
         print('ESTADO: S',estado)
-        so = decoSalida(estado,estados,salida[0],salida[1],a,b)
-        [estado,a,b] = decoEstado(entrada[0],entrada[1],estado,rebote,estados)
-    print('Se han logrado ',aciertos,' detecciones')
-    return aciertos
+        [estadoSig,a,b] = decoEstado(entrada[0],entrada[1],estado,rebote,estados)
+	so = decoSalida(estado,estados,salida[0],salida[1],a,b)
+    print('Ejecuci√on finalizada')
+    return  1
 
 # funcion     -entradas-palancas-       -estados--------salidas-
 canicasFSMmealy([2,3],[17,27,22],1,14,[0,1,2,3,4,5,6,7],[23,24])
