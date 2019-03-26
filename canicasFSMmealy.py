@@ -38,74 +38,74 @@ def decoSalida(estado,estados,C,D,a,b):
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
-	    print('Ficha sale por C')
+            print('Ficha sale por C')
         elif b:
             GPIO.output(C,1)
             GPIO.output(D,0)
-	    print('Ficha sale por C')
+            print('Ficha sale por C')
     elif estado == estados[1]:
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
-	    print('Ficha sale por C')
+            print('Ficha sale por C')
         elif b:
             GPIO.output(C,1)
             GPIO.output(D,0)
-	    print('Ficha sale por C')
+            print('Ficha sale por C')
     elif estado == estados[2]:
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
-	    print('Ficha sale por C')
+            print('Ficha sale por C')
         elif b:
             GPIO.output(C,0)
             GPIO.output(D,1)
-	    print('Ficha sale por D')
+            print('Ficha sale por D')
     elif estado == estados[3]:
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
-	    print('Ficha sale por C')
+            print('Ficha sale por C')
         elif b:
             GPIO.output(C,0)
             GPIO.output(D,1)
-	    print('Ficha sale por D')
+            print('Ficha sale por D')
     elif estado == estados[4]:
         if a:
             GPIO.output(C,0)
             GPIO.output(D,1)
-	    print('Ficha sale por D')
+            print('Ficha sale por D')
         elif b:
             GPIO.output(C,0)
             GPIO.output(D,1)
-	    print('Ficha sale por D')
+            print('Ficha sale por D')
     elif estado == estados[5]:
         if a:
             GPIO.output(C,0)
             GPIO.output(D,1)
-	    print('Ficha sale por D')
+            print('Ficha sale por D')
         elif b:
             GPIO.output(C,0)
             GPIO.output(D,1)
-	    print('Ficha sale por D')
+            print('Ficha sale por D')
     elif estado == estados[6]:
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
-	    print('Ficha sale por C')
+            print('Ficha sale por C')
         elif b:
             GPIO.output(C,0)
             GPIO.output(D,1)
-	    print('Ficha sale por D')
+            print('Ficha sale por D')
     elif estado == estados[7]:
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
-	    print('Ficha sale por C')
+            print('Ficha sale por C')
         elif b:
             GPIO.output(C,1)
             GPIO.output(D,0)
-	    print('Ficha sale por C')
+            print('Ficha sale por C')
     return 'Reiniciando...'
 
 def decoEstado(entradaA,entradaB,estado,rebote,estados):
@@ -154,16 +154,34 @@ def decoEstado(entradaA,entradaB,estado,rebote,estados):
             estado = estados[5]
     return [estado,a,b]
 
+def memoria(estado,estadoSig,x):
+    estado = estadoSig
+    for i in range(len(x)):
+        if estado < 2:
+            if i == 0:
+                GPIO.output(x[i],int(bin(estado)[-1]))
+            else:
+                GPIO.output(x[i],0)
+        elif estado < 4:
+            if i == 2:
+                GPIO.output(x[i],0)
+            else:
+                GPIO.output(x[i],int(bin(estado)[-(1+i)]))
+        else:
+            GPIO.output(x[i],int(bin(estado)[-(1+i)]))
+    return estado
+        
+
 def canicasFSMmealy(entrada,x,rebote,pare,estados,salida):
     print('Instante: ',time.strftime("%c"))
     estado = configurar(entrada[0],entrada[1],x,salida[0],salida[1],pare,estados)
     [estadoSig,a,b] = [0,0,0]
     while(GPIO.input(pare) != 0):
-	estado = estadoSig
+        estado = memoria(estado,estadoSig,x)
         print('ESTADO: S',estado)
         [estadoSig,a,b] = decoEstado(entrada[0],entrada[1],estado,rebote,estados)
-	so = decoSalida(estado,estados,salida[0],salida[1],a,b)
-    print('EjecuciÃon finalizada')
+        so = decoSalida(estado,estados,salida[0],salida[1],a,b)
+    print('Ejecucion finalizada')
     return  1
 
 # funcion     -entradas-palancas-       -estados--------salidas-
