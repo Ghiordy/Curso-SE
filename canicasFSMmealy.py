@@ -39,58 +39,74 @@ def decoSalida(estado,estados,C,D,a,b):
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
+	    print('Ficha sale por C')
         elif b:
             GPIO.output(C,1)
             GPIO.output(D,0)
+	    print('Ficha sale por D')
     elif estado == estados[1]:
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
+	    print('Ficha sale por C')
         elif b:
             GPIO.output(C,1)
             GPIO.output(D,0)
+	    print('Ficha sale por C')
     elif estado == estados[2]:
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
+	    print('Ficha sale por C')
         elif b:
             GPIO.output(C,0)
             GPIO.output(D,1)
+	    print('Ficha sale por D')
     elif estado == estados[3]:
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
+	    print('Ficha sale por C')
         elif b:
             GPIO.output(C,0)
             GPIO.output(D,1)
+	    print('Ficha sale por D')
     elif estado == estados[4]:
         if a:
             GPIO.output(C,0)
             GPIO.output(D,1)
+	    print('Ficha sale por D')
         elif b:
             GPIO.output(C,0)
             GPIO.output(D,1)
+	    print('Ficha sale por D')
     elif estado == estados[5]:
         if a:
             GPIO.output(C,0)
             GPIO.output(D,1)
+	    print('Ficha sale por D')
         elif b:
             GPIO.output(C,0)
             GPIO.output(D,1)
+	    print('Ficha sale por D')
     elif estado == estados[6]:
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
+	    print('Ficha sale por C')
         elif b:
             GPIO.output(C,0)
             GPIO.output(D,1)
+	    print('Ficha sale por D')
     elif estado == estados[7]:
         if a:
             GPIO.output(C,1)
             GPIO.output(D,0)
+	    print('Ficha sale por C')
         elif b:
             GPIO.output(C,1)
             GPIO.output(D,0)
+	    print('Ficha sale por C')
     return 'Reiniciando...'
 
 def decoEstado(entradaA,entradaB,estado,rebote,estados):
