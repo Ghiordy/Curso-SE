@@ -9,7 +9,7 @@ import time
 import numpy as np
 
 # Parametros de trabajo
-# entradas = Â2,3]
+# entradas = [2,3]
 # rebote = 1
 # pare = 14
 # estados = [0,1,2,3,4,5,6,7]
