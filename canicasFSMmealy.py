@@ -156,21 +156,29 @@ def decoEstado(entradaA,entradaB,estado,rebote,estados):
 
 def memoria(estado,estadoSig,x):
     estado = estadoSig
+    codigo = gray(estado)
     for i in range(len(x)):
-        if estado < 2:
-            if i == 0:
-                GPIO.output(x[i],int(bin(estado)[-1]))
-            else:
-                GPIO.output(x[i],0)
-        elif estado < 4:
-            if i == 2:
-                GPIO.output(x[i],0)
-            else:
-                GPIO.output(x[i],int(bin(estado)[-(1+i)]))
-        else:
-            GPIO.output(x[i],int(bin(estado)[-(1+i)]))
+        GPIO.output(x[i],codigo[-(1+i)])
     return estado
-        
+
+def gray(estado):
+    if estado == 0:
+        codigo = [0,0,0]
+    elif estado == 1:
+        codigo = [0,0,1]
+    elif estado == 2:
+        codigo = [0,1,1]
+    elif estado == 3:
+        codigo = [0,1,0]
+    elif estado == 4:
+        codigo = [1,1,0]
+    elif estado == 5:
+        codigo = [1,1,1]
+    elif estado == 6:
+        codigo = [1,0,1]
+    elif estado == 7:
+        codigo = [1,0,0]
+    return codigo
 
 def canicasFSMmealy(entrada,x,rebote,pare,estados,salida):
     print('Instante: ',time.strftime("%c"))
