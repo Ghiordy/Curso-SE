@@ -30,6 +30,7 @@ And states draw is presented below giving a description of transitions with its 
 
 ![image](https://drive.google.com/uc?export=view&id=1gbYlqLAhXxkNE_v9SXMLen4N2-kGVOMo)
 
+
 In code, you must be find at bottom the next instruction
 ```
 # funcion     -entradas-palancas-       -estados--------salidas-
@@ -40,6 +41,8 @@ This was defined for GPIO using **BCM** setup mode and should be changed in orde
 ### OnOffFsmMoore
 
 Simple machine with one pulser and one led, connected. This machine have two states that gives output for led and its current state changes just pulser is pressed, turning on or turninig off the led.
+
+![image](http://yuml.me/8a145127.png)
 
 ### detector101moore and detector101mealy
 
